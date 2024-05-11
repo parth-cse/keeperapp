@@ -41,8 +41,6 @@ function App(){
     }}catch(err){
       console.log(err)
     }
-
-    event.preventDefault()
   }
 
   return <>

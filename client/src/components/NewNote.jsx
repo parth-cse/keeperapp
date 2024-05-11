@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import { Fab } from "@mui/material";
+import { Zoom } from "@mui/material";
 
 function NewNote(props){
-    return <form onSubmit={props.add} >
-        <input onChange={props.handle} type="text" name="title" placeholder="Title" value={props.input.title}/>
-        <textarea onChange={props.handle} name="content" placeholder="content" value={props.input.content}/>
-        <button type="submit">ADD</button>
+    const [clicked, setClicked] = useState(false);
+
+    function handleClick(){
+        setClicked(true);
+    }
+
+
+    return <form onSubmit={(event)=>{
+        props.add();
+        setClicked(false);
+        event.preventDefault();
+        }} className="create-note">
+        <input style={{ display: clicked ? null : "none" }} onChange={props.handle} type="text" name="title" placeholder="Title" value={props.input.title}/>
+        <textarea onClick={handleClick} onChange={props.handle} name="content" rows={clicked ? "3" : "1"} placeholder="Take a note..." value={props.input.content}/>
+        <Zoom in={clicked ? true : false}><Fab type="submit">< AddIcon /></Fab></Zoom>
     </form>
 }
 
